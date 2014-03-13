@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | Giraffe&#39;s Blog</title>
+  <title>一些git指令的学习 | Giraffe&#39;s Blog</title>
   <meta name="author" content="giraffe">
   
   <meta name="description" content="努力坚持做正确的事情，而不是容易的事情 | java | jvm | gpgpu">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Hello World"/>
+  <meta property="og:title" content="一些git指令的学习"/>
   <meta property="og:site_name" content="Giraffe&#39;s Blog"/>
 
   
@@ -71,10 +71,10 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2014-03-12T15:36:01.000Z"><a href="/2014/03/12/hello-world/">周三, 3月 12 2014, 11:36:01 晚上</a></time>
+      <time datetime="2014-03-13T06:09:00.000Z"><a href="/2014/03/13/something-git/">周四, 3月 13 2014, 2:09:00 下午</a></time>
 
   
-    <h1 class="title">Hello World</h1>
+    <h1 class="title">一些git指令的学习</h1>
   
 
 
@@ -84,8 +84,41 @@
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="http://zespia.tw/hexo" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs" target="_blank">documentation</a> to learn how to use.</p>
-
+        <h2 id="git-blame">git blame</h2>
+<pre><code>&#39;git blame filename&#39; ： 用来显示filename文件每一行的最近一次提交的提交hash值、时间和提交者。
+-w 选项可以忽略移除空白这类改动 
+-M 选项可以忽略移动文本内容这类改动
+-C 选项可以忽略移动文本内容到其它文件这类改动
+</code></pre><h2 id="git-bisect">git bisect</h2>
+<pre><code>可以通过git bisect来进行二分查找，从而定位到引入bug的commit。
+git bisect start //开始
+git bisect bad //标记当前版本有问题
+git bisect good //标记当前版本没问题
+git bisect reset //结束 
+</code></pre><h2 id="git-reset-soft-mixed-hard-">git reset --soft/--mixed/--hard （解释三个选项的差异）</h2>
+<pre><code>git reset --soft/--mixed/--hard &lt;commit&gt;将当前的分支重新设置（reset）成指定commit，如果不指定，则默认为HEAD。
+--hard：重设缓存区和工作区，指定commit之后在工作区中进行的任何修改都被丢弃，并把HEAD指向&lt;commit&gt;。 
+--soft：缓存区和工作区中的内容不作任何修改，只是把HEAD指向&lt;commit&gt;。这个模式的效果是，执行完毕后，自从&lt;commit&gt;以来的所有改变都会显示在git status的&quot;Changes to be committed&quot;中。 
+--mixed：只重设缓存区，不重设工作区。这个模式是默认模式，效果是工作区中进行的修改都会被保留，但是也不会被标记成&quot;Changes to be committed&quot;，但是会打出什么还未被更新的报告。
+</code></pre><h2 id="git-merge-no-ff-ff-ff-only">git merge --no-ff/--ff/--ff-only</h2>
+<pre><code>fast-farward merge是指：如果顺着一个分支走下去可以到达另一个分支的话，那么Git在合并两者时，只会简单地把指针右移，因为这种单线的历史分支不存在任何需要解决的分歧，所以这种合并过程可以称为快进（Fast forward）。
+如果将分支a合并到b：
+--ff：这也是默认的合并策略，会直接将b指向a。
+--no-ff：不进行fast-farward而是执行正常合并，将在b分支上生成一个新节点。
+--ff-only：只进行fast-farward merge,如果不满足条件则不合并且返回一个非零的状态。
+</code></pre><h2 id="git-clean-fd">git clean -fd</h2>
+<pre><code>强制删除没有被git add到缓存区的目录和文件，但是会保留ignored的文件修改。
+</code></pre><h2 id="git-cherry-pick-experiment">git cherry-pick experiment</h2>
+<pre><code>把experiment分支的commit修改应用到当前分支。
+</code></pre><h2 id="git-revert-head-10">git revert HEAD~10</h2>
+<pre><code>回退到HEAD的第10个父提交那个版本，并产生一个新的commit。
+</code></pre><h2 id="git-init-bare">git init --bare</h2>
+<pre><code>使用命令&quot;git init --bare&quot;初始化的版本库只会生成一类文件:用于记录版本库历史记录的.git目录下面的文件，而不会包含实际项目源文件的拷贝。就是说,这个版本库里面的文件都是原本在.git目录下面的文件,把原本在.git目录里面的文件放在版本库的根目录下面。
+</code></pre><h2 id="git-config-global-user-email-kouzuyang-meituan-com-">git config --global user.email &quot;kouzuyang@meituan.com&quot;</h2>
+<pre><code>设置~/.gitconfig文件中user.email属性的值。
+</code></pre><h2 id="git-stash">git stash</h2>
+<pre><code>备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。换句话说就是当一个需求写了一半时，如果有一另一个更紧急的需求，可以用git stash将现在还没提交的修改先保存起来，并清除所有改动，然后当处理完紧急的需求之后，再用git stash apply回到之前写到一半的需求。
+</code></pre>
       
     </div>
     <footer>
@@ -109,8 +142,8 @@
           <div class="clearfix"></div>
           <nav id="pagination">
   
-    <a href="/2014/03/13/something-git/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i></a>
   
+    <a href="/2014/03/12/hello-world/" class="alignright next"><i class="fa fa-long-arrow-right"></i></a>
   
   <div class="clearfix"></div>
 </nav>
